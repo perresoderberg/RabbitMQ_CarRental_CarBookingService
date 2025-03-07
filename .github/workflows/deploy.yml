@@ -1,0 +1,37 @@
+name: Deploy CarBookingService to AKS
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+    
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Login to Azure
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Set up Docker
+        run: |
+          az acr login --name CarRentalContainerRegistry
+          
+      - name: Build and Push Docker Image
+        run: |
+          docker build -t CarRentalContainerRegistry.azurecr.io/carbookingservice:latest .
+          docker push CarRentalContainerRegistry.azurecr.io/carbookingservice:latest
+
+      - name: Set up Kubernetes
+        run: |
+          az aks get-credentials --resource-group rglearn --name CarRentalKubernetesCluster
+
+      - name: Deploy to Kubernetes
+        run: |
+          kubectl apply -f k8s/deployment.yml
+          kubectl rollout status deployment carbookingservice
