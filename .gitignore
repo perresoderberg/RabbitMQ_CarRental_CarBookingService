@@ -1,0 +1,64 @@
+# Ignore Visual Studio-specific files
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Ignore build outputs
+bin/
+obj/
+out/
+
+# Ignore NuGet packages
+*.nupkg
+packages/
+project.lock.json
+project.assets.json
+
+# Ignore logs and crash dumps
+*.log
+*.tlog
+*.dmp
+
+# Ignore user-specific files
+*.rsuser
+*.ideconfig
+
+
+# Ignore secrets and local configs
+appsettings.Development.json
+secrets.json
+.env
+
+
+# Ignore Resharper files
+*.DotSettings.user
+
+# Ignore database files
+*.mdf
+*.ldf
+
+# Ignore generated files
+Generated/
+ServiceFabricBackup/
+
+# Ignore temporary files
+*.tmp
+*.bak
+
+
+# Ignore Docker and Kubernetes related files
+.dockerignore
+.kube/
+
+
+# Ignore Windows system files
+Thumbs.db
+
+# Ignore deployment settings
+.publishsettings
+
+# Ignore other environment-related files
+*.env
+*.local.json
