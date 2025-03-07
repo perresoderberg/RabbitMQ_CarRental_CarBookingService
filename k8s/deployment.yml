@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: carbookingservice
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: carbookingservice
+  template:
+    metadata:
+      labels:
+        app: carbookingservice
+    spec:
+      containers:
+        - name: carbookingservice
+          image: CarRentalContainerRegistry.azurecr.io/carbookingservice:latest
+          ports:
+            - containerPort: 80
+          env:
+            - name: MONGODB_CONNECTION_STRING
+              value: "mongodb://your-mongodb-url:27017/car-rental-db"
+            - name: RABBITMQ_HOST
+              value: "rabbitmq.default.svc.cluster.local"
+            - name: RABBITMQ_USERNAME
+              value: "peso"
+            - name: RABBITMQ_PASSWORD
+              value: "peso_password"
